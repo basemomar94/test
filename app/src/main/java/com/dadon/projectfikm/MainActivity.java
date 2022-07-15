@@ -79,7 +79,8 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println(element.getIdfilm());
             }
 
-            setupRv(searchList);
+           // setupRv(searchList);
+            adapter.changelist(searchList);
 
 
         }

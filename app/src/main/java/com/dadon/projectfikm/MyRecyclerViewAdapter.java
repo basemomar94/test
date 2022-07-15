@@ -66,6 +66,12 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         }
     }
 
+    void changelist(List<Film> searchList){
+        mData = searchList;
+        notifyDataSetChanged();
+
+    }
+
     // convenience method for getting data at click position
 
 
