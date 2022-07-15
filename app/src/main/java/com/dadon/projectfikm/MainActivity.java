@@ -4,6 +4,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         setupRv(movieList);
         showForum();
-
+        cancel();
         binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -96,9 +97,9 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     addFilm();
 
-                } catch (Exception e){
+                } catch (Exception e) {
 
-                    Toast.makeText(MainActivity.this,"please enter the data",Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "please enter the data", Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -114,23 +115,51 @@ public class MainActivity extends AppCompatActivity {
                     String id = binding.addID.getText().toString();
                     String title = binding.AddTitle.getText().toString();
                     String lang = binding.AddLang.getText().toString();
-                    Integer rate =Integer.parseInt(binding.Addrate.getText().toString()) ;
-                    Film addedFilm = new Film("2",id,title,lang,rate);
+                    Integer rate = Integer.parseInt(binding.Addrate.getText().toString());
+                    Film addedFilm = new Film("2", id, title, lang, rate);
                     movieList.add(addedFilm);
-                    Toast.makeText(MainActivity.this,"Film "+id+ " a été bien enregistré",Toast.LENGTH_LONG).show();
-                    binding.addForume.setVisibility(View.GONE);
-                    binding.movieRv.setAlpha(1F);
+                    Toast.makeText(MainActivity.this, "Film " + id + " a été bien enregistré", Toast.LENGTH_LONG).show();
+                   hideForum();
                     adapter.notifyDataSetChanged();
+                    clearFields();
 
-                } catch (Exception e){
+
+                } catch (Exception e) {
                     binding.addForume.setVisibility(View.GONE);
                     binding.movieRv.setAlpha(1F);
-                    Toast.makeText(MainActivity.this,"please enter the data",Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "please enter the data", Toast.LENGTH_LONG).show();
 
                 }
 
             }
         });
 
+
     }
+
+    void cancel(){
+        binding.cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                clearFields();
+                hideForum();
+            }
+        });
+    }
+
+    void clearFields() {
+
+        binding.addID.getText().clear();
+        binding.AddTitle.getText().clear();
+        binding.AddLang.getText().clear();
+        binding.Addrate.getText().clear();
+    }
+
+    void hideForum(){
+        binding.addForume.setVisibility(View.GONE);
+        binding.movieRv.setAlpha(1F);
+    }
+
+
 }
